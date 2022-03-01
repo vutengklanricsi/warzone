@@ -1,8 +1,16 @@
+import Layout from "../components/Layout";
+
+export async function getStaticProps () {
+  const res = await fetch("")
+}
+
 
 export default function Home() {
   return (
     <>
-      <div>Warzone</div>
+      <Layout>
+        <div>Warzone</div>
+      </Layout>
     </>
   );
 }
