@@ -5,7 +5,6 @@ import { useQuery } from "react-query";
 import styled from "styled-components";
 
 const getMarvelData = async (queryKey) => {
-  const comics = queryKey;
   const ts = Number(new Date()).toString();
   md5(ts + PRIVATE_KEY + PUBLIC_KEY);
   const hash = md5.create();
@@ -13,7 +12,8 @@ const getMarvelData = async (queryKey) => {
   hash.hex();
 
   try {
-    const URL = `https://gateway.marvel.com:443/v1/public/comics?ts=${ts}&apikey=${PUBLIC_KEY}&hash=${hash}`;
+    const comics = queryKey?.queryKey[0];
+    const URL = `https://gateway.marvel.com:443/v1/public/${comics}?ts=${ts}&apikey=${PUBLIC_KEY}&hash=${hash}`;
     const res = await fetch(URL);
     const data = await res.json();
     return data;
@@ -33,14 +33,14 @@ export async function getStaticProps() {
 
 export default function Home({ marvelData }) {
   const { data, status } = useQuery(["comics"], getMarvelData);
-  console.log("marvel data", marvelData);
+  console.log("marvel data", data);
   console.log(status);
   return (
     <>
       <Layout>
         {status === "loading" && <div>Loading</div>}
         {status === "error" && <div>Loading</div>}
-        {status === "success" && <div>{data.copyright}</div>}
+        {/* {status === "success" && <div>{data.copyright}</div>} */}
         <Logo>MARVEL</Logo>
       </Layout>
     </>
