@@ -3,6 +3,7 @@ import { PUBLIC_KEY, PRIVATE_KEY } from "../apiKeys";
 import md5 from "js-md5";
 import { useQuery } from "react-query";
 import styled from "styled-components";
+import Comics from "./comics";
 
 const getMarvelData = async (queryKey) => {
   const ts = Number(new Date()).toString();
@@ -31,17 +32,18 @@ export async function getStaticProps() {
   };
 }
 
-export default function Home({ marvelData }) {
+export default function Home() {
   const { data, status } = useQuery(["comics"], getMarvelData);
-  console.log("marvel data", data);
-  console.log(status);
+  console.log("marvel data", data, " status: ", status);
+  const comics = data?.data.results;
+  console.log(data?.data.results);
   return (
     <>
       <Layout>
+        <Logo>MARVEL</Logo>
         {status === "loading" && <div>Loading</div>}
         {status === "error" && <div>Loading</div>}
-        {/* {status === "success" && <div>{data.copyright}</div>} */}
-        <Logo>MARVEL</Logo>
+        {status === "success" && <Comics comics={comics} />}
       </Layout>
     </>
   );
@@ -51,9 +53,9 @@ const Logo = styled.div`
   text-align: center;
   font-family: sans-serif;
   font-weight: 200px;
-  color: white;
   font-size: 18px;
   font-weight: bold;
+  color: white;
   border: 3.2px solid black;
   width: 101px;
   background-color: red;
