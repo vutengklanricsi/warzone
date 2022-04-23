@@ -1,13 +1,20 @@
-import React from 'react'
+import Link from "next/link";
+import styled from "styled-components";
 
-const Comics = ({comics}) => {
+const Comics = ({ comics , URL}) => {
   return (
-    <div>
-        {comics.map(comic => (
-            <div key={comic.id}>{comic.title}</div>
-        )
-    )}</div>
-  )
-}
+    <>
+      {comics.map((comic) => (
+        <ComicLink key={comic.id}>
+          <Link href={`comics/${comic.id}`} URL={URL}>
+            <a>{comic.title}</a>
+          </Link>
+        </ComicLink>
+      ))}
+    </>
+  );
+};
 
-export default Comics
+const ComicLink = styled.div``;
+
+export default Comics;
