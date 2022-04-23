@@ -16,5 +16,6 @@ export const getMarvelData = async (queryKey) => {
     return data;
   } catch (err) {
     console.log(err);
+    return "no data is founded";
   }
 };

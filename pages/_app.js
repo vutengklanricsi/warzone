@@ -1,8 +1,10 @@
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
+import { createStore } from "redux";
 import "../styles/globals.css";
 
 const queryClient = new QueryClient();
+
 
 function MyApp({ Component, pageProps }) {
   return (

@@ -1,5 +1,4 @@
 import { useQuery } from "react-query";
-import Layout from "../../components/Layout";
 import { getMarvelData } from "../api/marvelApi";
 import Comics from "../comics";
 
@@ -17,11 +16,11 @@ const HomePage = () => {
   const comics = data?.data.results;
   console.log("comics ", data?.data.results);
   return (
-    <Layout>
+    <>
       {status === "loading" && <div>Loading</div>}
       {status === "error" && <div>Loading</div>}
       {status === "success" && <Comics comics={comics} URL={URL} />}
-    </Layout>
+    </>
   );
 };
 
